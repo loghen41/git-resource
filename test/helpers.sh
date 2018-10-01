@@ -576,14 +576,18 @@ get_uri_with_unknown_verification_key() {
 }
 
 get_uri_when_using_keyserver() {
+  echo "Got Here A"
   jq -n "{
     source: {
       uri: $(echo $1 | jq -R .),
       commit_verification_key_ids: [\"A3E20CD6371D49E244B0730D1CDD25AEB0F5F8EF\"]
     }
   }" | ${resource_dir}/in "$2" | tee /dev/stderr
+  echo "Got Here B"
   exit_code=$?
+  echo "Got Here C"
   delete_public_key
+  echo "Got Here D. Exit Code: ${exit_code}"
   return ${exit_code}
 }
 
